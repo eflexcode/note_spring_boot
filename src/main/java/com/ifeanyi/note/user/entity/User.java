@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.Set;
@@ -37,8 +39,10 @@ public class User {
     private Set<Note> notes;
 
     @Column(name = "created_at",updatable = false)
+    @CreationTimestamp
     private Date createAt;
     @Column(name = "updated_at")
+    @UpdateTimestamp
     private Date updatedAt;
 
 }

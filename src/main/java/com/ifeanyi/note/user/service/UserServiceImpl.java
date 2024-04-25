@@ -4,6 +4,7 @@ import com.ifeanyi.note.user.entity.User;
 import com.ifeanyi.note.user.entity.model.UserModel;
 import com.ifeanyi.note.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @AllArgsConstructor
+@Data
 public class UserServiceImpl implements UserService {
 
-    UserRepository userRepository;
+  private UserRepository userRepository;
 
     @Override
     public User createUser(UserModel userModel) {

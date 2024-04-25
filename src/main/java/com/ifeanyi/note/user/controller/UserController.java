@@ -15,14 +15,14 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/register")
-    @ResponseStatus(HttpStatus.OK)
-    public User ceateUser(UserModel userModel) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public User ceateUser(@RequestBody UserModel userModel) {
         return userService.createUser(userModel);
     }
 
     @PostMapping("/update")
     @ResponseStatus(HttpStatus.OK)
-    public User updateUser(UserModel userModel, @RequestParam(name = "user_id") Long userId) {
+    public User updateUser(@RequestBody UserModel userModel, @RequestParam(name = "user_id") Long userId) {
         return userService.updateUser(userModel, userId);
     }
 
