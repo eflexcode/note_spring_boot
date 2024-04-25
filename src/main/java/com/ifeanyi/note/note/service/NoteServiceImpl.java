@@ -8,7 +8,9 @@ import com.ifeanyi.note.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @AllArgsConstructor
@@ -31,18 +33,27 @@ public class NoteServiceImpl implements NoteService{
     @Override
     public Note updateNote(NoteModel noteModel, Long noteId) {
 
+        Note note = getNote(noteId);
 
+        note.setTitle(noteModel.getTitle() != null ? noteModel.getTitle() : note.getTitle());
+        note.setBody(noteModel.getCoverImageUrl() != null ? noteModel.getCoverImageUrl() : note.getCoverImageUrl());
+        note.setTitle(noteModel.getBody() != null ? noteModel.getBody() : note.getBody());
 
-        return null;
+        if (noteModel.getOwnerId() != null) {
+            User user = userService.getUser(noteModel.getOwnerId());
+            note.setUser(user);
+            note.setOwnerId(noteModel.getOwnerId() != null ? noteModel.getOwnerId() : note.getOwnerId());
+        }
+        return noteRepository.save(note);
     }
 
     @Override
     public Note getNote(Long noteId) {
-        return null;
+        return noteRepository.findById(noteId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Override
     public void deleteNote(Long noteId) {
-
+        noteRepository.deleteById(noteId);
     }
 }

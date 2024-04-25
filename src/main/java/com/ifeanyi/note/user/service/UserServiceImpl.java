@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(UserModel userModel,Long userId) {
 
-        User user = userRepository.findById(userId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        User user = getUser(userId);// userRepository.findById(userId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         user.setName(userModel.getName() != null ? userModel.getName() : user.getName());
         user.setName(userModel.getEmail() != null ? userModel.getEmail() : user.getEmail());
