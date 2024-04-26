@@ -1,5 +1,6 @@
 package com.ifeanyi.note.user.service;
 
+import com.ifeanyi.note.exception.NotFountException;
 import com.ifeanyi.note.user.entity.User;
 import com.ifeanyi.note.user.entity.model.UserModel;
 import com.ifeanyi.note.user.repository.UserRepository;
@@ -27,7 +28,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(UserModel userModel,Long userId) {
+    public User updateUser(UserModel userModel,Long userId) throws NotFountException {
 
         User user = getUser(userId);// userRepository.findById(userId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
@@ -40,8 +41,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(Long userId) {
-        return userRepository.findById(userId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public User getUser(Long userId) throws NotFountException {
+        return userRepository.findById(userId).orElseThrow(()-> new NotFountException("No user found with id: "+userId));
     }
 
     @Override

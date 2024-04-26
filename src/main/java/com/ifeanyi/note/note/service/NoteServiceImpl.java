@@ -1,5 +1,6 @@
 package com.ifeanyi.note.note.service;
 
+import com.ifeanyi.note.exception.NotFountException;
 import com.ifeanyi.note.note.entity.Note;
 import com.ifeanyi.note.note.entity.model.NoteModel;
 import com.ifeanyi.note.note.repository.NoteRepository;
@@ -21,7 +22,7 @@ public class NoteServiceImpl implements NoteService{
     private UserService userService;
 
     @Override
-    public Note createNote(NoteModel noteModel) {
+    public Note createNote(NoteModel noteModel) throws NotFountException {
         Note note = new Note();
         BeanUtils.copyProperties(noteModel,note);
         User user = userService.getUser(noteModel.getOwnerId());
@@ -31,7 +32,7 @@ public class NoteServiceImpl implements NoteService{
     }
 
     @Override
-    public Note updateNote(NoteModel noteModel, Long noteId) {
+    public Note updateNote(NoteModel noteModel, Long noteId) throws NotFountException {
 
         Note note = getNote(noteId);
 
@@ -48,8 +49,8 @@ public class NoteServiceImpl implements NoteService{
     }
 
     @Override
-    public Note getNote(Long noteId) {
-        return noteRepository.findById(noteId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public Note getNote(Long noteId) throws NotFountException {
+        return noteRepository.findById(noteId).orElseThrow(()-> new NotFountException("No note found with id: "+noteId));
     }
 
     @Override

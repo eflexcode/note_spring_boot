@@ -1,5 +1,6 @@
 package com.ifeanyi.note.note.controller;
 
+import com.ifeanyi.note.exception.NotFountException;
 import com.ifeanyi.note.note.entity.Note;
 import com.ifeanyi.note.note.entity.model.NoteModel;
 import com.ifeanyi.note.note.service.NoteService;
@@ -18,19 +19,19 @@ public class NoteController  {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public Note createNote(@RequestBody NoteModel noteModel) {
+    public Note createNote(@RequestBody NoteModel noteModel) throws NotFountException {
         return noteService.createNote(noteModel);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public Note updateNote(@RequestBody NoteModel noteModel,@RequestParam(name = "note_id") Long noteId) {
+    public Note updateNote(@RequestBody NoteModel noteModel,@RequestParam(name = "note_id") Long noteId) throws NotFountException {
         return noteService.updateNote(noteModel,noteId);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Note getNote(@RequestParam(name = "note_id")Long noteId) {
+    public Note getNote(@RequestParam(name = "note_id")Long noteId) throws NotFountException {
         return noteService.getNote(noteId);
     }
 
