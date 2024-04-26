@@ -6,8 +6,12 @@ import com.ifeanyi.note.note.entity.model.NoteModel;
 import com.ifeanyi.note.note.service.NoteService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -33,6 +37,12 @@ public class NoteController  {
     @ResponseStatus(HttpStatus.OK)
     public Note getNote(@RequestParam(name = "note_id")Long noteId) throws NotFountException {
         return noteService.getNote(noteId);
+    }
+
+    @GetMapping("/query")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Note> getNoteByOwnerId(@RequestParam(name = "user_id")Long userId, Pageable pageable) throws NotFountException {
+        return noteService.getNoteByOwnerId(userId, pageable).toList();
     }
 
     @DeleteMapping

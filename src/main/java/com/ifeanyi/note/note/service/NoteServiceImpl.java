@@ -9,6 +9,8 @@ import com.ifeanyi.note.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -51,6 +53,11 @@ public class NoteServiceImpl implements NoteService{
     @Override
     public Note getNote(Long noteId) throws NotFountException {
         return noteRepository.findById(noteId).orElseThrow(()-> new NotFountException("No note found with id: "+noteId));
+    }
+
+    @Override
+    public Page<Note> getNoteByOwnerId(Long userId, Pageable pageable) {
+        return noteRepository.findByOwnerId(userId, pageable);
     }
 
     @Override
