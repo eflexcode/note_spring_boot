@@ -9,6 +9,7 @@ public interface NoteService {
     Note createNote(NoteModel noteModel);
     Note updateNote(NoteModel noteModel,Long noteId);
     Note getNote(Long noteId);
+//    Note get
     void deleteNote(Long noteId);
 
 }

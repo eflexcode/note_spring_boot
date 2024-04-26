@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,7 +37,7 @@ public class User {
     private String profileImageUrl;
 
     @OneToMany(mappedBy ="user",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
-    private Set<Note> notes;
+    private List<Note> notes;
 
     @Column(name = "created_at",updatable = false)
     @CreationTimestamp

@@ -1,5 +1,6 @@
 package com.ifeanyi.note.note.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ifeanyi.note.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,6 +27,7 @@ public class Note {
     private String body;// this is going to be htlm dont know how to do it yet
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @Column(name = "created_at",updatable = false)
